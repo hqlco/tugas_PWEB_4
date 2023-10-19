@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Belajar Form Validation</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="form-title">Form Validasi</h2>
+      <form
+        name="formPendaftaran"
+        action="daftar.php"
+        method="post"
+        onsubmit="return validateForm()"
+      >
+        <div class="form-group">
+          <label for="nama">Nama</label>
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            placeholder="Nama lengkap"
+            class="form-control"
+            required
+            maxlength="40"
+            minlength="3"
+          />
+        </div>
+        <div class="form-group">
+          <label for="nrp">NRP</label>
+          <input
+            type="text"
+            id="nrp"
+            name="nrp"
+            placeholder="NRP"
+            class="form-control"
+            required
+            pattern="[0-9]{10}"
+          />
+          <small id="nrpHelp" class="form-text text-muted"
+            >Contoh: 1234567890 (10 digit angka).</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Aktif"
+            class="form-control"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >Email Akan Digunakan Untuk Mengirimkan Notifikasi.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="jurusan">Jurusan</label>
+          <select id="jurusan" name="jurusan" class="form-control">
+            <option value="0">Pilih Jurusan</option>
+            <option value="1">Jurusan Informatika</option>
+            <option value="2">Jurusan Teknik Komputer Jaringan</option>
+            <option value="3">Jurusan Multimedia</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <script>
+      function validateForm() {
+        if (document.forms["formPendaftaran"]["nama"].value == "") {
+          alert("Nama Tidak Boleh Kosong");
+          document.forms["formPendaftaran"]["nama"].focus();
+          return false;
+        }
+        if (document.forms["formPendaftaran"]["nrp"].value == "") {
+          alert("NRP Tidak Boleh Kosong");
+          document.forms["formPendaftaran"]["nrp"].focus();
+          return false;
+        }
+        if (
+          !/^[0-9]{10}$/.test(document.forms["formPendaftaran"]["nrp"].value)
+        ) {
+          alert("NRP harus terdiri dari 10 digit angka.");
+          document.forms["formPendaftaran"]["nrp"].focus();
+          return false;
+        }
+        if (document.forms["formPendaftaran"]["email"].value == "") {
+          alert("Email Tidak Boleh Kosong");
+          document.forms["formPendaftaran"]["email"].focus();
+          return false;
+        }
+        if (document.forms["formPendaftaran"]["jurusan"].selectedIndex < 1) {
+          alert("Pilih Jurusan.");
+          document.forms["formPendaftaran"]["jurusan"].focus();
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>
